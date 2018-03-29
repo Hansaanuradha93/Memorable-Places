@@ -43,20 +43,8 @@
         app:layout_constraintStart_toEndOf="@+id/backgroundImageView"
         app:layout_constraintTop_toTopOf="@+id/memorablePlacesImageView" />
 
-    <Button
-        android:id="@+id/addPlacesButton"
-        android:layout_width="338dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:onClick="addNewPlaces"
-        android:text="add places"
-        app:layout_constraintEnd_toStartOf="@+id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/backgroundImageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/placesListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -66,6 +54,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/memorablePlacesImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlacesButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>
