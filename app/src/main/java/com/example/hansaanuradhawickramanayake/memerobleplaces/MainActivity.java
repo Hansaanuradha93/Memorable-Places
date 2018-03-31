@@ -1,6 +1,8 @@
 package com.example.hansaanuradhawickramanayake.memerobleplaces;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,10 +32,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.hansaanuradhawickramanayake.memerobleplaces", Context.MODE_PRIVATE);
+
+
+        ArrayList<String> latitudesList = new ArrayList<>();
+        ArrayList<String> longitudesList = new ArrayList<>();
+
+        
+        places.clear();
+        latitudesList.clear();
+        longitudesList.clear();
+        locationList.clear();
+
+        try{
+
+            places = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("places", ObjectSerializer.serialize(new ArrayList<String>())));
+
+            latitudesList = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("lats", ObjectSerializer.serialize(new ArrayList<String>())));
+
+            longitudesList = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("longs", ObjectSerializer.serialize(new ArrayList<String>())));
+
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+        }
+
+        if (places.size() > 0 && latitudesList.size() > 0  && longitudesList.size() > 0){
+
+            if (places.size() == latitudesList.size() && places.size() == longitudesList.size()){
+                for (int i = 0; i < latitudesList.size(); i++){
+
+                    locationList.add(new LatLng(Double.parseDouble(latitudesList.get(i)), Double.parseDouble(longitudesList.get(i))));
+                }
+            }
+
+        } else {
+
+
+            places.add("Add a Place ...");
+            locationList.add(new LatLng(0 , 0));
+
+        }
+
         placesListView = findViewById(R.id.placesListView);
 
-        places.add("Add a Place ...");
-        locationList.add(new LatLng(0 , 0));
 
         arrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, places){
